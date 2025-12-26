@@ -97,6 +97,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (!keywords || typeof keywords !== 'string' || keywords.trim().length === 0) {
+      return NextResponse.json(
+        { success: false, error: 'Keywords are required' },
+        { status: 400 }
+      );
+    }
+
     // Check user quota (optional for personal use, but good to have)
     const { data: profile } = await supabase
       .from('profiles')
@@ -121,7 +128,7 @@ export async function POST(request: NextRequest) {
     // Create job input data
     const inputData: JobInputData = {
       topic: topic.trim(),
-      keywords: keywords?.trim() || undefined,
+      keywords: keywords.trim(),
       word_limit: word_limit || 1000,
     };
 

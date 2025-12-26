@@ -18,7 +18,7 @@ export interface Profile {
 
 export interface JobInputData {
   topic: string;
-  keywords?: string;
+  keywords: string;
   word_limit?: number;
 }
 

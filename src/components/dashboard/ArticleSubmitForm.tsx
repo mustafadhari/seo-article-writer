@@ -34,7 +34,7 @@ export default function ArticleSubmitForm({ onJobCreated }: ArticleSubmitFormPro
         },
         body: JSON.stringify({
           topic: topic.trim(),
-          keywords: keywords.trim() || undefined,
+          keywords: keywords.trim(),
           word_limit: parseInt(wordLimit) || 1000,
         }),
       });
@@ -102,7 +102,7 @@ export default function ArticleSubmitForm({ onJobCreated }: ArticleSubmitFormPro
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="keywords">Keywords (optional)</Label>
+              <Label htmlFor="keywords">Keywords *</Label>
               <Input
                 id="keywords"
                 type="text"
@@ -110,6 +110,7 @@ export default function ArticleSubmitForm({ onJobCreated }: ArticleSubmitFormPro
                 value={keywords}
                 onChange={(e) => setKeywords(e.target.value)}
                 disabled={loading}
+                required
               />
             </div>
 
@@ -131,7 +132,7 @@ export default function ArticleSubmitForm({ onJobCreated }: ArticleSubmitFormPro
           <Button
             type="submit"
             className="w-full"
-            disabled={loading || !topic.trim()}
+            disabled={loading || !topic.trim() || !keywords.trim()}
           >
             {loading ? 'Creating...' : 'Generate Article'}
           </Button>

@@ -14,6 +14,9 @@ export default function DashboardPage() {
 
   const fetchJobs = async () => {
     try {
+      // Check for timed out jobs first
+      await fetch('/api/jobs/check-timeout');
+      
       const params = new URLSearchParams();
       if (filter !== 'all') {
         params.set('status', filter);
